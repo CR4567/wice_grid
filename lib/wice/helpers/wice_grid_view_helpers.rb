@@ -190,21 +190,25 @@ module Wice
 
           column_block_output, additional_opts = column_block_output
 
+=begin
           unless additional_opts.is_a?(Hash)
             raise WiceGridArgumentError.new('When WiceGrid column block returns an array its second element is expected to be a ' \
                                             "hash containing HTML attributes for the <td> tag. The returned value is #{additional_opts.inspect}. Read documentation.")
           end
-
-          additional_css_class = nil
-          if additional_opts.key?(:class)
-            additional_css_class = additional_opts[:class]
-            additional_opts.delete(:class)
-          elsif additional_opts.key?('class')
-            additional_css_class = additional_opts['class']
-            additional_opts.delete('class')
-          end
-          opts.merge!(additional_opts)
-          Wice::WgHash.add_or_append_class_value!(opts, additional_css_class) unless additional_css_class.blank?
+=end
+					#TODO: Quick fix if you have composite keys. Before you got an error because wice grid was thinking it is an additional option in wrong format.
+					if additional_opts.is_a?(Hash)
+	          additional_css_class = nil
+	          if additional_opts.key?(:class)
+	            additional_css_class = additional_opts[:class]
+	            additional_opts.delete(:class)
+	          elsif additional_opts.key?('class')
+	            additional_css_class = additional_opts['class']
+	            additional_opts.delete('class')
+	          end
+	          opts.merge!(additional_opts)
+	          Wice::WgHash.add_or_append_class_value!(opts, additional_css_class) unless additional_css_class.blank?
+					end
         end
 
         if sorting_dependant_row_cycling && column.attribute && grid.ordered_by?(column)
